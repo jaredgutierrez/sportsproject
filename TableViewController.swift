@@ -8,7 +8,11 @@
 
 import UIKit
 
+private let reuseIdentifier = "Cell"
+
 class TableViewController: UITableViewController {
+    
+    var sports = ["San Jose Sharks", "San Francisco Giants", "Oakland Raiders", "San Francisco 49ers", "Golden State Warriors"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,23 +33,22 @@ class TableViewController: UITableViewController {
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return sports.count
     }
 
-    /*
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath) as! TableViewCell
 
         // Configure the cell...
-
+        cell.teamName.text = sports[indexPath.row]
         return cell
     }
-    */
 
     /*
     // Override to support conditional editing of the table view.
@@ -66,6 +69,9 @@ class TableViewController: UITableViewController {
         }    
     }
     */
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        performSegueWithIdentifier("toImage", sender: indexPath)
+    }
 
     /*
     // Override to support rearranging the table view.
@@ -82,14 +88,18 @@ class TableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if (segue.identifier == "toImage") {
+            let vc = segue.destinationViewController as! ViewController
+            let index = (sender as! NSIndexPath).row
+            vc.rowIndex = index
+        }
     }
-    */
 
 }

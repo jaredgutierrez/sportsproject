@@ -10,10 +10,14 @@ import UIKit
 
 class WebTabViewController: UIViewController {
 
+    @IBOutlet weak var WebTab: UIWebView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        let ESPNURL = NSURL(string: "https://sports.yahoo.com")
+        let webRequest = NSURLRequest(URL: ESPNURL!)
+        WebTab.loadRequest(webRequest)
     }
 
     override func didReceiveMemoryWarning() {
